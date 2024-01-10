@@ -41,9 +41,10 @@ const Find: React.FC<Props> = ({navigation}) => {
   const [isHard, setIsHard] = useState(false);
   const [word, setWord] = useState('');
   const [zoom, setZoom] = useState('zoomIn');
-  const [options, setOptions] = useState<dbData>(
-    pickRandomOptions([...data], isHard ? 5 : 3),
-  );
+  const [options, setOptions] = useState<dbData>([]);
+  useEffect(() => {
+    setOptions(pickRandomOptions([...data], isHard ? 5 : 3));
+  }, [data]);
   const animatedValue = useRef(new Animated.Value(0)).current;
 
   const translateX = animatedValue.interpolate({
@@ -294,7 +295,7 @@ const Find: React.FC<Props> = ({navigation}) => {
                   styles.txt,
                   {color: 'white', fontSize: widthPrecent(6)},
                 ]}>
-                {'raju'}
+                {options[rightAns]?.Word}
               </Text>
             ) : null}
           </ImageBackground>

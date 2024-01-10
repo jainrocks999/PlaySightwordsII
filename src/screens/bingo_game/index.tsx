@@ -33,7 +33,11 @@ const Bingo: React.FC<Props> = ({navigation}) => {
   const backSound = useSelector((state: rootState) => state.data.backSound);
   const [seconds, setSeconds] = useState(0);
   const data = useSelector((state: rootState) => state.data.dbData);
-  const [options, setOptions] = useState<dbData>(randomotions(data, 16));
+  const [options, setOptions] = useState<dbData>([]);
+  useEffect(() => {
+    setOptions(randomotions(data, 16));
+    resetGameState();
+  }, [data]);
 
   const [incorrect, setIncorrect] = useState(0);
   const [rightAns, setRightAns] = useState(-1);

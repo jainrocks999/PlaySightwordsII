@@ -54,7 +54,7 @@ const Word: React.FC<Props> = ({navigation}) => {
     return () => {
       clearTimeout(clear);
     };
-  }, [random]);
+  }, [random, datas]);
 
   useEffect(() => {
     const clear = setTimeout(() => {
@@ -63,11 +63,12 @@ const Word: React.FC<Props> = ({navigation}) => {
     return () => {
       clearTimeout(clear);
     };
-  }, []);
+  }, [data]);
   const [newWord, setNewWord] = useState('');
   const [music, setMusic] = useState<music[]>([]);
   const [spred_word, setWordToShow] = useState('');
   useEffect(() => {
+    setWordToShow('');
     const clear = setTimeout(() => {
       showData();
       setDealy(200);
@@ -75,7 +76,7 @@ const Word: React.FC<Props> = ({navigation}) => {
     return () => {
       clearTimeout(clear);
     };
-  }, [count]);
+  }, [count, data]);
   const clearAllTimeouts = () => {
     timeoutsRef.current.forEach(timeoutId => {
       clearTimeout(timeoutId);
@@ -91,11 +92,12 @@ const Word: React.FC<Props> = ({navigation}) => {
       clearTimeout(times);
     };
   };
-  const [navigations, setNavigation] = useState(false);
+
   const loop = (characters: string[]) => {
     clearAllTimeouts();
 
     const newTimeouts: any = [];
+    setWordToShow('');
     characters.forEach((item, index) => {
       const timeoutId: NodeJS.Timeout = setTimeout(() => {
         setWordToShow(prevWord => prevWord + item);

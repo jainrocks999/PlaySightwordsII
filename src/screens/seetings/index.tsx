@@ -13,7 +13,7 @@ import styles from './styles';
 import {Image} from 'react-native-animatable';
 import {heightPercent} from '../../utils/ResponsiveScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {dbData, random} from '../../types';
+import {random} from '../../types';
 import {useDispatch, useSelector} from 'react-redux';
 import {rootState} from '../../redux';
 import db from '../../utils/db';
@@ -24,11 +24,11 @@ const Setting: React.FC<Props> = ({navigation}) => {
   const backSound = useSelector((state: rootState) => state.data.backSound);
   const [random, setISRandom] = useState<random>();
   const [grad, setGrade] = useState<'tblWord' | 'tblWordG2' | ''>('');
+  const [prevgrad, setprevGrade] = useState<'tblWord' | 'tblWordG2' | ''>('');
   useEffect(() => {
     getGrade();
   }, []);
   const dispatch = useDispatch();
-  console.log('this is backSOund', backSound);
 
   useEffect(() => {
     const handleBackButton = () => {
@@ -71,32 +71,43 @@ const Setting: React.FC<Props> = ({navigation}) => {
         | 'tblWord'
         | 'tblWordG2';
       setGrade(validGrades);
+      setprevGrade(validGrades);
     }
   };
   const save = async () => {
     const dbData = await db(grad);
-    dispatch({
-      type: 'sightwords/getDataFromdb',
-      payload: dbData,
-    });
-    dispatch({
-      type: 'sightwords/setGrade',
-      payload: grad,
-    });
+    await AsyncStorage.setItem('grade', grad);
     dispatch({
       type: 'sightwords/setRendom',
       payload: random,
     });
 
-    await AsyncStorage.setItem('grade', grad);
     await AsyncStorage.setItem('random', JSON.stringify(random));
+    if (prevgrad != grad) {
+      dispatch({
+        type: 'sightwords/getDataFromdb',
+        payload: dbData,
+      });
+      dispatch({
+        type: 'sightwords/setGrade',
+        payload: grad,
+      });
+    }
     let isGOBack = false;
     for (let key in backSound) {
       let validKey = key as keyof typeof backSound;
       if (backSound[validKey]) {
         dispatch({
           type: 'sightwords/backSound',
-          payload: {...backSound, [key]: key != 'home' ? false : true},
+          payload: {
+            ...backSound,
+            [key]:
+              prevgrad != grad
+                ? backSound[validKey]
+                : key != 'home'
+                ? false
+                : true,
+          },
         });
         isGOBack = true;
       }

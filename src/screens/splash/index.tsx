@@ -19,15 +19,24 @@ const Splash: React.FC<Props> = ({navigation}) => {
   }, []);
   const getIntialPage = async () => {
     const grade = await AsyncStorage.getItem('grade');
+    const random = await AsyncStorage.getItem('random');
     const data = await db(grade ? grade : '');
+    if (random != null) {
+      dispatch({
+        type: 'sightwords/setRendom',
+        payload: JSON.parse(random),
+      });
+    }
     dispatch({
       type: 'sightwords/getDataFromdb',
       payload: data,
     });
-    dispatch({
-      type: 'sightwords/setGrade',
-      payload: grade,
-    });
+    if (grade != null) {
+      dispatch({
+        type: 'sightwords/setGrade',
+        payload: grade,
+      });
+    }
     dispatch({
       type: 'sightwords/resetbackSound',
     });

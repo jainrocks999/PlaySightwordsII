@@ -36,12 +36,15 @@ const Memory: React.FC<Props> = ({navigation}) => {
     return duplicateArray;
   };
 
-  const [options, setOptions] = useState<dbData>(
-    pickRandomOptions(
-      createDuplicate([...pickRandomOptions([...data], isHard ? 6 : 3)]),
-      isHard ? 12 : 6,
-    ),
-  );
+  const [options, setOptions] = useState<dbData>([]);
+  useEffect(() => {
+    setOptions(
+      pickRandomOptions(
+        createDuplicate([...pickRandomOptions([...data], isHard ? 6 : 3)]),
+        isHard ? 12 : 6,
+      ),
+    );
+  }, [data]);
   const [selected, setSelected] = useState<dbItem>();
   const [selectedeIndex, setSelectedIndex] = useState<number[]>([]);
   const [righIndex, setRinghtIndex] = useState<number[]>([]);
