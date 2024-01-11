@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   BackHandler,
+  Modal,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {StackScreenProps} from '@react-navigation/stack';
@@ -17,22 +18,23 @@ import player from '../../utils/player';
 import resetPlayer from '../../utils/resetPlayer';
 import {useDispatch} from 'react-redux';
 import {widthPrecent} from '../../utils/ResponsiveScreen';
+import MyModal from '../../components/Modal';
 type Props = StackScreenProps<StackNavigationParams, 'practice'>;
 const Practice: React.FC<Props> = ({navigation}) => {
   const [grade, setGrade] = useState('gradeA');
   const [data, setData] = useState<dbData>();
+  const [isVisible, setIsvisible] = useState(false);
   useEffect(() => {
     getDataWithGrade('gradeA');
   }, []);
   const getDataWithGrade = async (type: string) => {
-    console.log(type);
-
     const getData = await AsyncStorage.getItem(type);
     let validData;
     if (getData != null) {
       validData = (await JSON.parse(getData)) as dbData;
       setData(validData);
     } else {
+      setIsvisible(true);
       setData([] as dbData);
     }
     setGrade(type);
@@ -67,11 +69,20 @@ const Practice: React.FC<Props> = ({navigation}) => {
       backHandler.remove();
     };
   }, []);
+  const handleonModal = (visible: boolean) => {
+    setIsvisible(visible);
+  };
   return (
     <ImageBackground
       resizeMode="stretch"
       source={require('../../asset/images/pwbg.png')}
       style={styles.container}>
+      <MyModal
+        isVisible={isVisible}
+        onPress={handleonModal}
+        txt="Pratice again list for difficult words. Add words to list from
+              Word by making them Red!"
+      />
       <View style={styles.practiImg2}>
         <Image
           style={styles.img}

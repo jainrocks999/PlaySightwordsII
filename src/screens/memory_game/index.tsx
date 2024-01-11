@@ -21,6 +21,7 @@ import rightSound from '../../utils/rightSound';
 import pickRandomOptions from '../../utils/randomotions';
 import * as Animatable from 'react-native-animatable';
 import resetPlayer from '../../utils/resetPlayer';
+import MyModal from '../../components/Modal';
 type Props = StackScreenProps<StackNavigationParams, 'memory'>;
 
 const Memory: React.FC<Props> = ({navigation}) => {
@@ -49,11 +50,13 @@ const Memory: React.FC<Props> = ({navigation}) => {
   const [selectedeIndex, setSelectedIndex] = useState<number[]>([]);
   const [righIndex, setRinghtIndex] = useState<number[]>([]);
   const [cloud, setCloud] = useState<number[]>([]);
+  const [isDisabled, setIsDisabled] = useState(false);
   const praisedItem = async (
     item: dbItem,
     index: number,
     prevArray: number[],
   ) => {
+    setIsDisabled(true);
     const music = {
       url: `asset:/files/_${item.Word}.mp3`,
       title: item.Word,
@@ -77,6 +80,7 @@ const Memory: React.FC<Props> = ({navigation}) => {
           isHard ? 12 : 6,
         );
         setOptions(random);
+        setIsDisabled(false);
         setRinghtIndex([]);
         setSelectedIndex([]);
         setCloud([]);
@@ -118,13 +122,37 @@ const Memory: React.FC<Props> = ({navigation}) => {
       backHandler.remove();
     };
   }, []);
+  const [visible, setIsvisible] = useState(false);
+  const handleLevel = async () => {
+    if (!isDisabled) {
+      setZoom('zoomOut');
+      await delay(500);
+      let random = pickRandomOptions(
+        createDuplicate([...pickRandomOptions([...data], !isHard ? 6 : 3)]),
+        !isHard ? 12 : 6,
+      );
+      setOptions(random);
+      setIsHard(!isHard);
+      setZoom('zoomIn');
+    } else {
+      setIsvisible(true);
+    }
+  };
   return (
     <ImageBackground
       style={styles.container}
       resizeMode="stretch"
       source={require('../../asset/images/a1.png')}>
+      <MyModal
+        isVisible={visible}
+        onPress={(value: boolean) => {
+          setIsvisible(value);
+        }}
+        txt="You cannot change levels until all your answers are correct."
+      />
       <Animatable.View animation={zoom} style={styles.container}>
         <Header
+          isRightDisabled={false}
           page="find"
           isMuted
           onLeftPress={() => {
@@ -136,17 +164,7 @@ const Memory: React.FC<Props> = ({navigation}) => {
           }}
           disabled
           onRightPress={async () => {
-            setZoom('zoomOut');
-            await delay(500);
-            let random = pickRandomOptions(
-              createDuplicate([
-                ...pickRandomOptions([...data], !isHard ? 6 : 3),
-              ]),
-              !isHard ? 12 : 6,
-            );
-            setOptions(random);
-            setIsHard(!isHard);
-            setZoom('zoomIn');
+            handleLevel();
           }}
           isHard={isHard}
           onCenterPress={() => {

@@ -76,4 +76,10 @@ export default StyleSheet.create({
     height: wp(16),
     width: wp(16),
   },
+  ablsoluteView: {
+    backgroundColor: 'white',
+    position: 'absolute',
+    zIndex: 1,
+    flex: 1,
+  },
 });
