@@ -1,4 +1,4 @@
-package com.newplaysightwordsiinew
+package com.playsightwords2New
 
 import android.app.Application
 import com.facebook.react.PackageList

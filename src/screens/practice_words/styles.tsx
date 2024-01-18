@@ -80,4 +80,11 @@ export default StyleSheet.create({
     bottom: hp(3),
     alignSelf: 'center',
   },
+  home: {
+    height: hp(14),
+    width: hp(14),
+    alignSelf: 'center',
+    position: 'absolute',
+    bottom: hp(10),
+  },
 });

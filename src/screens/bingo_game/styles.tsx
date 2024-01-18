@@ -27,7 +27,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   txt: {
-    fontSize: wp(6),
+    fontSize: wp(5),
     color: 'black',
     fontWeight: '500',
   },

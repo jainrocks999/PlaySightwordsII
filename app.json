@@ -1,4 +1,8 @@
 {
-  "name": "playsightwords",
-  "displayName": "playsightwords"
+  "name": "playsightwords2New",
+  "displayName": "Sight Words II with Word Bingo",
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-3339897183017333~1290817186",
+    "ios_app_id": "ca-app-pub-xxxxxxxx~xxxxxxxx"
+  }
 }

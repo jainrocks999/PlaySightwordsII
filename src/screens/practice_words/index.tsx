@@ -19,6 +19,8 @@ import resetPlayer from '../../utils/resetPlayer';
 import {useDispatch} from 'react-redux';
 import {widthPrecent} from '../../utils/ResponsiveScreen';
 import MyModal from '../../components/Modal';
+import {GAMBannerAd, BannerAdSize} from 'react-native-google-mobile-ads';
+import showAdd, {Addsid} from '../../utils/ads';
 type Props = StackScreenProps<StackNavigationParams, 'practice'>;
 const Practice: React.FC<Props> = ({navigation}) => {
   const [grade, setGrade] = useState('gradeA');
@@ -160,14 +162,24 @@ const Practice: React.FC<Props> = ({navigation}) => {
         </View>
       ) : null}
       <TouchableOpacity
-        onPress={() => navigation.reset({index: 0, routes: [{name: 'home'}]})}
-        style={styles.homeContainer}>
+        onPress={() => {
+          navigation.reset({index: 0, routes: [{name: 'home'}]});
+        }}
+        style={styles.home}>
         <Image
           style={styles.img}
-          resizeMode="contain"
           source={require('../../asset/images/hmbtn.png')}
         />
       </TouchableOpacity>
+      {/* <View style={{position: 'absolute', bottom: 0}}>
+        <GAMBannerAd
+          unitId={Addsid.BANNER}
+          sizes={[BannerAdSize.FULL_BANNER]}
+          requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
+          }}
+        />
+      </View> */}
     </ImageBackground>
   );
 };

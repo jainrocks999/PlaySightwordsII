@@ -21,6 +21,8 @@ import resetPlayer from '../../utils/resetPlayer';
 import {useIsFocused} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import TrackPlayer from 'react-native-track-player';
+import {GAMBannerAd, BannerAdSize} from 'react-native-google-mobile-ads';
+import {Addsid} from '../../utils/ads';
 type Props = StackScreenProps<StackNavigationParams, 'home'>;
 const Home: React.FC<Props> = ({navigation}) => {
   const [muted, setMuted] = useState(false);
@@ -122,6 +124,7 @@ const Home: React.FC<Props> = ({navigation}) => {
           onRightPress={() => {
             navigation.navigate('setting');
           }}
+          isRightDisabled={false}
         />
         <View style={styles.imagescontainer}>
           <FlatList
@@ -150,6 +153,15 @@ const Home: React.FC<Props> = ({navigation}) => {
             source={require('../../asset/images/eflashappipad.png')}
           />
         </View>
+        {/* <View style={{position: 'absolute', bottom: 0}}>
+          <GAMBannerAd
+            unitId={Addsid.BANNER}
+            sizes={[BannerAdSize.FULL_BANNER]}
+            requestOptions={{
+              requestNonPersonalizedAdsOnly: true,
+            }}
+          />
+        </View> */}
       </ImageBackground>
     </View>
   );

@@ -16,7 +16,6 @@ export const handleAppStateChange = async (
     }
 
     if (nextState === 'background') {
-      console.log('gone background');
       await resetPlayer();
     }
   };

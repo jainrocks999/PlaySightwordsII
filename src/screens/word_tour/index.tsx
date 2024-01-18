@@ -21,6 +21,8 @@ import resetPlayer from '../../utils/resetPlayer';
 import {dbData, dbItem} from '../../types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import TrackPlayer from 'react-native-track-player';
+import showAdd, {Addsid} from '../../utils/ads';
+import {GAMBannerAd, BannerAdSize} from 'react-native-google-mobile-ads';
 type Props = StackScreenProps<StackNavigationParams, 'word'>;
 type music = {
   url: string;
@@ -247,7 +249,12 @@ const Word: React.FC<Props> = ({navigation}) => {
       backHandler.remove();
     };
   }, []);
-
+  const onPressUpdate = (number: number) => {
+    setWordToShow('');
+    setCount(number);
+    if (count % 20 == 0 || count === data.length) {
+    }
+  };
   return (
     <ImageBackground
       source={
@@ -293,8 +300,7 @@ const Word: React.FC<Props> = ({navigation}) => {
       <View style={styles.btncontainer}>
         <TouchableOpacity
           onPress={() => {
-            setWordToShow('');
-            setCount(count - 1);
+            onPressUpdate(count - 1);
           }}
           disabled={count == 0 ? true : false}
           style={styles.singleBtncontainer}>
@@ -323,8 +329,7 @@ const Word: React.FC<Props> = ({navigation}) => {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            setWordToShow('');
-            setCount(count + 1);
+            onPressUpdate(count + 1);
           }}
           disabled={count + 1 == data.length ? true : false}
           style={styles.singleBtncontainer}>
@@ -352,6 +357,15 @@ const Word: React.FC<Props> = ({navigation}) => {
           source={require('../../asset/images/hmbtn.png')}
         />
       </TouchableOpacity>
+      {/* <View style={{position: 'absolute', bottom: 0}}>
+        <GAMBannerAd
+          unitId={Addsid.BANNER}
+          sizes={[BannerAdSize.FULL_BANNER]}
+          requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
+          }}
+        />
+      </View> */}
     </ImageBackground>
   );
 };

@@ -25,7 +25,7 @@ export default StyleSheet.create({
     marginVertical: wp(1),
   },
   txt: {
-    fontSize: wp(6),
+    fontSize: wp(5),
     color: 'black',
     fontWeight: 'bold',
   },

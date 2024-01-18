@@ -10,6 +10,8 @@ import {
   AppStateStatus,
   BackHandler,
 } from 'react-native';
+import {GAMBannerAd, BannerAdSize} from 'react-native-google-mobile-ads';
+import showAdd, {Addsid} from '../../utils/ads';
 import React, {useEffect, useRef, useState} from 'react';
 import {StackScreenProps} from '@react-navigation/stack';
 import {StackNavigationParams} from '../../components/navigation';
@@ -20,10 +22,8 @@ import randomotions from '../../utils/randomotions';
 import Header from '../../components/Header';
 import {FlatList} from 'react-native-gesture-handler';
 import {dbData} from '../../types';
-
 import player from '../../utils/player';
 import rightSound from '../../utils/rightSound';
-
 import FastImage from 'react-native-fast-image';
 import TrackPlayer from 'react-native-track-player';
 import resetPlayer from '../../utils/resetPlayer';
@@ -62,6 +62,7 @@ const Bingo: React.FC<Props> = ({navigation}) => {
       clearTimeout(clear);
     };
   }, [update]);
+  const [count, setCount] = useState(1);
   const getQuestion = () => {
     return new Promise<number>(resolve => {
       let index: number = Math.floor(Math.random() * 16);
@@ -120,6 +121,11 @@ const Bingo: React.FC<Props> = ({navigation}) => {
       resolve(true);
     });
   };
+  useEffect(() => {
+    if (count % 10 == 0) {
+      setCount(0);
+    }
+  }, [count]);
 
   const isDiagonalSelected = (array: number[], direction: 'left' | 'right') => {
     return new Promise<boolean>(resolve => {
@@ -246,6 +252,7 @@ const Bingo: React.FC<Props> = ({navigation}) => {
       }
     } else {
       setIncorrect(prev => prev + 1);
+      setCount(prev => prev + 1);
       await player([
         {
           url: 'asset:/files/string.wav',
@@ -388,6 +395,7 @@ const Bingo: React.FC<Props> = ({navigation}) => {
           navigation.reset({index: 0, routes: [{name: 'home'}]});
         }}
         page="bingo"
+        isRightDisabled={false}
       />
       <View style={styles.listCotainer}>
         {show && (
@@ -460,6 +468,15 @@ const Bingo: React.FC<Props> = ({navigation}) => {
         resizeMode="contain"
         source={require('../../asset/images/clock.png')}
       />
+      {/* <View style={{position: 'absolute', bottom: 0}}>
+        <GAMBannerAd
+          unitId={Addsid.BANNER}
+          sizes={[BannerAdSize.FULL_BANNER]}
+          requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
+          }}
+        />
+      </View> */}
     </ImageBackground>
   );
 };

@@ -17,6 +17,8 @@ import {random} from '../../types';
 import {useDispatch, useSelector} from 'react-redux';
 import {rootState} from '../../redux';
 import db from '../../utils/db';
+import {GAMBannerAd, BannerAdSize} from 'react-native-google-mobile-ads';
+import {Addsid} from '../../utils/ads';
 import TrackPlayer from 'react-native-track-player';
 type Props = StackScreenProps<StackNavigationParams, 'setting'>;
 const Setting: React.FC<Props> = ({navigation}) => {
@@ -165,6 +167,15 @@ const Setting: React.FC<Props> = ({navigation}) => {
         style={styles.saveBtn}>
         <Text style={styles.random}>{'SAVE'}</Text>
       </TouchableOpacity>
+      {/* <View style={{position: 'absolute', bottom: 0}}>
+        <GAMBannerAd
+          unitId={Addsid.BANNER}
+          sizes={[BannerAdSize.FULL_BANNER]}
+          requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
+          }}
+        />
+      </View> */}
     </ImageBackground>
   );
 };

@@ -25,7 +25,7 @@ export default StyleSheet.create({
     zIndex: 1,
   },
   txt: {
-    fontSize: wp(8),
+    fontSize: wp(5.5),
     color: 'black',
     fontWeight: 'bold',
     alignSelf: 'center',
@@ -46,7 +46,7 @@ export default StyleSheet.create({
   boy: {
     height: hp(25),
     position: 'absolute',
-    bottom: hp(5),
+    bottom: hp(9),
     left: wp(5),
   },
   home: {
