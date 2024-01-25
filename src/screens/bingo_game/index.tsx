@@ -123,6 +123,7 @@ const Bingo: React.FC<Props> = ({navigation}) => {
   };
   useEffect(() => {
     if (count % 10 == 0) {
+      showAdd();
       setCount(0);
     }
   }, [count]);
@@ -468,7 +469,7 @@ const Bingo: React.FC<Props> = ({navigation}) => {
         resizeMode="contain"
         source={require('../../asset/images/clock.png')}
       />
-      {/* <View style={{position: 'absolute', bottom: 0}}>
+      <View style={{position: 'absolute', bottom: 0}}>
         <GAMBannerAd
           unitId={Addsid.BANNER}
           sizes={[BannerAdSize.FULL_BANNER]}
@@ -476,7 +477,7 @@ const Bingo: React.FC<Props> = ({navigation}) => {
             requestNonPersonalizedAdsOnly: true,
           }}
         />
-      </View> */}
+      </View>
     </ImageBackground>
   );
 };

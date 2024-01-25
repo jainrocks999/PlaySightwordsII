@@ -167,7 +167,7 @@ const Setting: React.FC<Props> = ({navigation}) => {
         style={styles.saveBtn}>
         <Text style={styles.random}>{'SAVE'}</Text>
       </TouchableOpacity>
-      {/* <View style={{position: 'absolute', bottom: 0}}>
+      <View style={{position: 'absolute', bottom: 0}}>
         <GAMBannerAd
           unitId={Addsid.BANNER}
           sizes={[BannerAdSize.FULL_BANNER]}
@@ -175,7 +175,7 @@ const Setting: React.FC<Props> = ({navigation}) => {
             requestNonPersonalizedAdsOnly: true,
           }}
         />
-      </View> */}
+      </View>
     </ImageBackground>
   );
 };

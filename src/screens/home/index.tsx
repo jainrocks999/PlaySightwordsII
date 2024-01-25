@@ -153,7 +153,7 @@ const Home: React.FC<Props> = ({navigation}) => {
             source={require('../../asset/images/eflashappipad.png')}
           />
         </View>
-        {/* <View style={{position: 'absolute', bottom: 0}}>
+        <View style={{position: 'absolute', bottom: 0}}>
           <GAMBannerAd
             unitId={Addsid.BANNER}
             sizes={[BannerAdSize.FULL_BANNER]}
@@ -161,7 +161,7 @@ const Home: React.FC<Props> = ({navigation}) => {
               requestNonPersonalizedAdsOnly: true,
             }}
           />
-        </View> */}
+        </View>
       </ImageBackground>
     </View>
   );

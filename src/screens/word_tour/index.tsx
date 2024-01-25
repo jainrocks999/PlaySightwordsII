@@ -253,6 +253,7 @@ const Word: React.FC<Props> = ({navigation}) => {
     setWordToShow('');
     setCount(number);
     if (count % 20 == 0 || count === data.length) {
+      showAdd();
     }
   };
   return (
@@ -357,7 +358,7 @@ const Word: React.FC<Props> = ({navigation}) => {
           source={require('../../asset/images/hmbtn.png')}
         />
       </TouchableOpacity>
-      {/* <View style={{position: 'absolute', bottom: 0}}>
+      <View style={{position: 'absolute', bottom: 0}}>
         <GAMBannerAd
           unitId={Addsid.BANNER}
           sizes={[BannerAdSize.FULL_BANNER]}
@@ -365,7 +366,7 @@ const Word: React.FC<Props> = ({navigation}) => {
             requestNonPersonalizedAdsOnly: true,
           }}
         />
-      </View> */}
+      </View>
     </ImageBackground>
   );
 };

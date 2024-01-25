@@ -105,6 +105,7 @@ const Find: React.FC<Props> = ({navigation}) => {
   const [disabled, setDiSabled] = useState<number[]>([]);
   const presseOption = async (index: number, array: dbData) => {
     if (count % 10 == 0) {
+      showAdd();
       setCount(0);
     }
     setChangeDisabled(true);
@@ -228,7 +229,7 @@ const Find: React.FC<Props> = ({navigation}) => {
       await delay(500);
       setOptions(pickRandomOptions([...data], !isHard ? 5 : 3));
       setIsHard(!isHard);
-
+      showAdd();
       setZoom('zoomIn');
     } else {
       setIsvisible(true);
@@ -355,7 +356,7 @@ const Find: React.FC<Props> = ({navigation}) => {
           />
         </TouchableOpacity>
       </Animatable.View>
-      {/* <View style={{position: 'absolute', bottom: 0}}>
+      <View style={{position: 'absolute', bottom: 0}}>
         <GAMBannerAd
           unitId={Addsid.BANNER}
           sizes={[BannerAdSize.FULL_BANNER]}
@@ -363,7 +364,7 @@ const Find: React.FC<Props> = ({navigation}) => {
             requestNonPersonalizedAdsOnly: true,
           }}
         />
-      </View> */}
+      </View>
     </ImageBackground>
   );
 };

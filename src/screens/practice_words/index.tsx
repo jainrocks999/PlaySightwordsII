@@ -163,6 +163,7 @@ const Practice: React.FC<Props> = ({navigation}) => {
       ) : null}
       <TouchableOpacity
         onPress={() => {
+          showAdd();
           navigation.reset({index: 0, routes: [{name: 'home'}]});
         }}
         style={styles.home}>
@@ -171,7 +172,7 @@ const Practice: React.FC<Props> = ({navigation}) => {
           source={require('../../asset/images/hmbtn.png')}
         />
       </TouchableOpacity>
-      {/* <View style={{position: 'absolute', bottom: 0}}>
+      <View style={{position: 'absolute', bottom: 0}}>
         <GAMBannerAd
           unitId={Addsid.BANNER}
           sizes={[BannerAdSize.FULL_BANNER]}
@@ -179,7 +180,7 @@ const Practice: React.FC<Props> = ({navigation}) => {
             requestNonPersonalizedAdsOnly: true,
           }}
         />
-      </View> */}
+      </View>
     </ImageBackground>
   );
 };
