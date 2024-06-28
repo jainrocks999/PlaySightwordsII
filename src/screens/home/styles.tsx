@@ -32,4 +32,15 @@ export default StyleSheet.create({
     bottom: hp(15),
     left: wp(25),
   },
+  upgadeBtn: {
+    height: hp(5),
+    width: wp(30),
+    position: 'absolute',
+    bottom: hp(10),
+    right: '1%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: wp(3),
+    backgroundColor: 'yellow',
+  },
 });

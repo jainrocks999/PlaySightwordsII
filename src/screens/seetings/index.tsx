@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -20,8 +20,10 @@ import db from '../../utils/db';
 import {GAMBannerAd, BannerAdSize} from 'react-native-google-mobile-ads';
 import {Addsid} from '../../utils/ads';
 import TrackPlayer from 'react-native-track-player';
+import {IAPContext} from '../../Context';
 type Props = StackScreenProps<StackNavigationParams, 'setting'>;
 const Setting: React.FC<Props> = ({navigation}) => {
+  const IAP = useContext(IAPContext);
   const randomform = useSelector((state: rootState) => state.data.random);
   const backSound = useSelector((state: rootState) => state.data.backSound);
   const [random, setISRandom] = useState<random>();
@@ -167,15 +169,17 @@ const Setting: React.FC<Props> = ({navigation}) => {
         style={styles.saveBtn}>
         <Text style={styles.random}>{'SAVE'}</Text>
       </TouchableOpacity>
-      <View style={{position: 'absolute', bottom: 0}}>
-        <GAMBannerAd
-          unitId={Addsid.BANNER}
-          sizes={[BannerAdSize.FULL_BANNER]}
-          requestOptions={{
-            requestNonPersonalizedAdsOnly: true,
-          }}
-        />
-      </View>
+      {!IAP?.hasPurchased && (
+        <View style={{position: 'absolute', bottom: 0}}>
+          <GAMBannerAd
+            unitId={Addsid.BANNER}
+            sizes={[BannerAdSize.ANCHORED_ADAPTIVE_BANNER]}
+            requestOptions={{
+              requestNonPersonalizedAdsOnly: true,
+            }}
+          />
+        </View>
+      )}
     </ImageBackground>
   );
 };

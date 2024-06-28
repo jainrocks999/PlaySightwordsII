@@ -7,7 +7,7 @@ import {
   BackHandler,
   Modal,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {StackScreenProps} from '@react-navigation/stack';
 import {StackNavigationParams} from '../../components/navigation';
 import styles from './styles';
@@ -21,8 +21,10 @@ import {widthPrecent} from '../../utils/ResponsiveScreen';
 import MyModal from '../../components/Modal';
 import {GAMBannerAd, BannerAdSize} from 'react-native-google-mobile-ads';
 import showAdd, {Addsid} from '../../utils/ads';
+import {IAPContext} from '../../Context';
 type Props = StackScreenProps<StackNavigationParams, 'practice'>;
 const Practice: React.FC<Props> = ({navigation}) => {
+  const IAP = useContext(IAPContext);
   const [grade, setGrade] = useState('gradeA');
   const [data, setData] = useState<dbData>();
   const [isVisible, setIsvisible] = useState(false);
@@ -163,24 +165,26 @@ const Practice: React.FC<Props> = ({navigation}) => {
       ) : null}
       <TouchableOpacity
         onPress={() => {
-          showAdd();
+          !IAP?.hasPurchased && showAdd();
           navigation.reset({index: 0, routes: [{name: 'home'}]});
         }}
-        style={styles.home}>
+        style={[styles.home, IAP?.hasPurchased && {bottom: 5}]}>
         <Image
           style={styles.img}
           source={require('../../asset/images/hmbtn.png')}
         />
       </TouchableOpacity>
-      <View style={{position: 'absolute', bottom: 0}}>
-        <GAMBannerAd
-          unitId={Addsid.BANNER}
-          sizes={[BannerAdSize.FULL_BANNER]}
-          requestOptions={{
-            requestNonPersonalizedAdsOnly: true,
-          }}
-        />
-      </View>
+      {!IAP?.hasPurchased && (
+        <View style={{position: 'absolute', bottom: 0}}>
+          <GAMBannerAd
+            unitId={Addsid.BANNER}
+            sizes={[BannerAdSize.ANCHORED_ADAPTIVE_BANNER]}
+            requestOptions={{
+              requestNonPersonalizedAdsOnly: true,
+            }}
+          />
+        </View>
+      )}
     </ImageBackground>
   );
 };

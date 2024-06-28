@@ -15,6 +15,9 @@
 		7699B88040F8A987B510C191 /* libPods-playsightwords-playsightwordsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-playsightwords-playsightwordsTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		41CCD99394624B9490D6E25E /* Doctor Soos Bold 1.1.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 59EB7F6740A44A4887C38DD0 /* Doctor Soos Bold 1.1.ttf */; };
+		C0D2370ECB7F46449EEEC8C1 /* LibreBaskerville-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A1A2FBF8C4A445C899A07A7 /* LibreBaskerville-Bold.ttf */; };
+		9A7959DAA70F42669B826B7F /* LibreBaskerville-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97357C2D5D5345CD8CEED013 /* LibreBaskerville-Italic.ttf */; };
+		594DC23F0EB84E8BB32F7E56 /* LibreBaskerville-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 477ED09BAA494934B0F3E7D7 /* LibreBaskerville-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +49,9 @@
 		89C6BE57DB24E9ADA2F236DE /* Pods-playsightwords-playsightwordsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-playsightwords-playsightwordsTests.release.xcconfig"; path = "Target Support Files/Pods-playsightwords-playsightwordsTests/Pods-playsightwords-playsightwordsTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		59EB7F6740A44A4887C38DD0 /* Doctor Soos Bold 1.1.ttf */ = {isa = PBXFileReference; name = "Doctor Soos Bold 1.1.ttf"; path = "../src/asset/fonts/Doctor Soos Bold 1.1.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6A1A2FBF8C4A445C899A07A7 /* LibreBaskerville-Bold.ttf */ = {isa = PBXFileReference; name = "LibreBaskerville-Bold.ttf"; path = "../src/asset/fonts/LibreBaskerville-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		97357C2D5D5345CD8CEED013 /* LibreBaskerville-Italic.ttf */ = {isa = PBXFileReference; name = "LibreBaskerville-Italic.ttf"; path = "../src/asset/fonts/LibreBaskerville-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		477ED09BAA494934B0F3E7D7 /* LibreBaskerville-Regular.ttf */ = {isa = PBXFileReference; name = "LibreBaskerville-Regular.ttf"; path = "../src/asset/fonts/LibreBaskerville-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +161,9 @@
 			isa = "PBXGroup";
 			children = (
 				59EB7F6740A44A4887C38DD0 /* Doctor Soos Bold 1.1.ttf */,
+				6A1A2FBF8C4A445C899A07A7 /* LibreBaskerville-Bold.ttf */,
+				97357C2D5D5345CD8CEED013 /* LibreBaskerville-Italic.ttf */,
+				477ED09BAA494934B0F3E7D7 /* LibreBaskerville-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -256,6 +265,9 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				41CCD99394624B9490D6E25E /* Doctor Soos Bold 1.1.ttf in Resources */,
+				C0D2370ECB7F46449EEEC8C1 /* LibreBaskerville-Bold.ttf in Resources */,
+				9A7959DAA70F42669B826B7F /* LibreBaskerville-Italic.ttf in Resources */,
+				594DC23F0EB84E8BB32F7E56 /* LibreBaskerville-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

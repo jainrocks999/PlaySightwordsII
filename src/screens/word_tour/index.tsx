@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -23,6 +23,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import TrackPlayer from 'react-native-track-player';
 import showAdd, {Addsid} from '../../utils/ads';
 import {GAMBannerAd, BannerAdSize} from 'react-native-google-mobile-ads';
+import {IAPContext} from '../../Context';
 type Props = StackScreenProps<StackNavigationParams, 'word'>;
 type music = {
   url: string;
@@ -32,6 +33,7 @@ type music = {
   duration: number;
 };
 const Word: React.FC<Props> = ({navigation}) => {
+  const IAP = useContext(IAPContext);
   const grade = useSelector((state: rootState) => state.data.grade);
   const random = useSelector((state: rootState) => state.data.random);
   const page = useSelector((state: rootState) => state.data.page);
@@ -253,7 +255,7 @@ const Word: React.FC<Props> = ({navigation}) => {
     setWordToShow('');
     setCount(number);
     if (count % 20 == 0 || count === data.length) {
-      showAdd();
+      !IAP?.hasPurchased && showAdd();
     }
   };
   return (
@@ -358,15 +360,17 @@ const Word: React.FC<Props> = ({navigation}) => {
           source={require('../../asset/images/hmbtn.png')}
         />
       </TouchableOpacity>
-      <View style={{position: 'absolute', bottom: 0}}>
-        <GAMBannerAd
-          unitId={Addsid.BANNER}
-          sizes={[BannerAdSize.FULL_BANNER]}
-          requestOptions={{
-            requestNonPersonalizedAdsOnly: true,
-          }}
-        />
-      </View>
+      {!IAP?.hasPurchased && (
+        <View style={{position: 'absolute', bottom: 0}}>
+          <GAMBannerAd
+            unitId={Addsid.BANNER}
+            sizes={[BannerAdSize.FULL_BANNER]}
+            requestOptions={{
+              requestNonPersonalizedAdsOnly: true,
+            }}
+          />
+        </View>
+      )}
     </ImageBackground>
   );
 };

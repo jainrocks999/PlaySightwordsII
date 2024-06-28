@@ -6,8 +6,11 @@ import {
   Alert,
   AppState,
   AppStateStatus,
+  Text,
+  TouchableHighlight,
+  Linking,
 } from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import Header from '../../components/Header';
 import styles from './styles';
 import {FlatList} from 'react-native-gesture-handler';
@@ -23,8 +26,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import TrackPlayer from 'react-native-track-player';
 import {GAMBannerAd, BannerAdSize} from 'react-native-google-mobile-ads';
 import {Addsid} from '../../utils/ads';
+import {IAPContext} from '../../Context';
+import PurchasedeModal from '../../components/PurchaseModal';
 type Props = StackScreenProps<StackNavigationParams, 'home'>;
 const Home: React.FC<Props> = ({navigation}) => {
+  const IAP = useContext(IAPContext);
   const [muted, setMuted] = useState(false);
   const page = useSelector((state: rootState) => state.data.page);
   const data = useSelector((state: rootState) =>
@@ -112,6 +118,20 @@ const Home: React.FC<Props> = ({navigation}) => {
         style={styles.backImage}
         source={require('../../asset/images/newmainbg.png')}
         resizeMode="stretch">
+        {!IAP?.hasPurchased && (
+          <PurchasedeModal
+            visible={IAP?.visible ?? false}
+            onPress={() => {
+              IAP?.requestPurchase();
+            }}
+            onClose={val => {
+              IAP?.setVisible(val);
+            }}
+            onRestore={() => {
+              IAP?.checkPurchases(true);
+            }}
+          />
+        )}
         <Header
           page=""
           disabled
@@ -147,21 +167,54 @@ const Home: React.FC<Props> = ({navigation}) => {
             )}
           />
         </View>
-        <View style={styles.bottumImage}>
+        <TouchableOpacity
+          onPress={() => {
+            Linking.openURL('https://babyflashcards.com/apps.html');
+          }}
+          style={styles.bottumImage}>
           <Image
             style={styles.image}
             source={require('../../asset/images/eflashappipad.png')}
           />
-        </View>
-        <View style={{position: 'absolute', bottom: 0}}>
-          <GAMBannerAd
-            unitId={Addsid.BANNER}
-            sizes={[BannerAdSize.FULL_BANNER]}
-            requestOptions={{
-              requestNonPersonalizedAdsOnly: true,
+        </TouchableOpacity>
+        {!IAP?.hasPurchased && (
+          <TouchableHighlight
+            underlayColor={'#fff'}
+            onPress={() => {
+              IAP?.setVisible(true);
             }}
-          />
-        </View>
+            style={styles.upgadeBtn}>
+            {/* <ImageBackground
+              style={{
+                height: '100%',
+                width: '100%',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              source={require('../../asset/images/btnbg.png')}>
+            
+            </ImageBackground> */}
+            <Text
+              style={{
+                color: 'black',
+                fontWeight: '600',
+                fontFamily: 'LibreBaskerville-Bold',
+              }}>
+              UPGRADE
+            </Text>
+          </TouchableHighlight>
+        )}
+        {!IAP?.hasPurchased && (
+          <View style={{position: 'absolute', bottom: 0}}>
+            <GAMBannerAd
+              unitId={Addsid.BANNER}
+              sizes={[BannerAdSize.FULL_BANNER]}
+              requestOptions={{
+                requestNonPersonalizedAdsOnly: true,
+              }}
+            />
+          </View>
+        )}
       </ImageBackground>
     </View>
   );

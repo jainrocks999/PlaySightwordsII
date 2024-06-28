@@ -4,8 +4,8 @@ import {
   TestIds,
 } from 'react-native-google-mobile-ads';
 export const Addsid = {
-  BANNER: 'ca-app-pub-3339897183017333/8814083988 ', //'ca-app-pub-3339897183017333/9093285589',
-  Interstitial: 'ca-app-pub-3339897183017333/1290817186', // 'ca-app-pub-3339897183017333/1570018788',
+  BANNER: TestIds.BANNER, // 'ca-app-pub-3339897183017333/8814083988 ', //'ca-app-pub-3339897183017333/9093285589',
+  Interstitial: TestIds.INTERSTITIAL, //'ca-app-pub-3339897183017333/1290817186', // 'ca-app-pub-3339897183017333/1570018788',
 };
 
 const requestOption = {

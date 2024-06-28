@@ -4,6 +4,18 @@
     {
       "path": "src/asset/fonts/Doctor Soos Bold 1.1.ttf",
       "sha1": "f6e8187b3444da84bde055e44cc3211ec9751cf7"
+    },
+    {
+      "path": "src/asset/fonts/LibreBaskerville-Bold.ttf",
+      "sha1": "f8081cbeceb2e69fdffca2348b2c9e0933cd52b5"
+    },
+    {
+      "path": "src/asset/fonts/LibreBaskerville-Italic.ttf",
+      "sha1": "1c4a7eed5b5ffeed2818cc75c16825596d64ab67"
+    },
+    {
+      "path": "src/asset/fonts/LibreBaskerville-Regular.ttf",
+      "sha1": "ed706d27473a09536d94fed8fee4809fda713759"
     }
   ]
 }
