@@ -49,6 +49,7 @@ const Splash: React.FC<Props> = ({navigation}) => {
     <View style={{flex: 1}}>
       <Image
         style={{height: hp(100), width: wp(100)}}
+        resizeMode="stretch"
         source={require('../../asset/images/splashscreen.png')}
       />
     </View>
