@@ -146,11 +146,51 @@ const IAPProvider: React.FC<IAPProviderProps> = ({children}) => {
         await RNIap.requestPurchase({sku});
       }
     } catch (error: any) {
-      Alert.alert('Message', error.message);
+      // Alert.alert('Message', error.message);
+      Alert.alert(getErrorMessage(error));
       console.log('this is error', error);
     }
   };
-
+  function getErrorMessage(errorCode: ErrorCode): string {
+    switch (errorCode) {
+      case ErrorCode.E_UNKNOWN:
+        return "An unknown error has occurred. Please try again later.";
+      case ErrorCode.E_USER_CANCELLED:
+        return "The operation was cancelled by the user.";
+      case ErrorCode.E_USER_ERROR:
+        return "An error occurred due to user input. Please check your information.";
+      case ErrorCode.E_ITEM_UNAVAILABLE:
+        return "The item is currently unavailable. Please try again later.";
+      case ErrorCode.E_REMOTE_ERROR:
+        return "There was an error communicating with the server. Please try again.";
+      case ErrorCode.E_NETWORK_ERROR:
+        return "A network error occurred. Please check your internet connection.";
+      case ErrorCode.E_SERVICE_ERROR:
+        return "There was a service error. Please try again later.";
+      case ErrorCode.E_RECEIPT_FAILED:
+        return "Failed to process the receipt. Please contact support.";
+      case ErrorCode.E_RECEIPT_FINISHED_FAILED:
+        return "Receipt processing finished with errors. Please try again.";
+      case ErrorCode.E_NOT_PREPARED:
+        return "The service is not prepared. Please try again later.";
+      case ErrorCode.E_NOT_ENDED:
+        return "The operation has not ended. Please wait and try again.";
+      case ErrorCode.E_ALREADY_OWNED:
+        return "You already own this item.";
+      case ErrorCode.E_DEVELOPER_ERROR:
+        return "A developer error has occurred. Please contact support.";
+      case ErrorCode.E_BILLING_RESPONSE_JSON_PARSE_ERROR:
+        return "There was an error processing the billing response. Please try again.";
+      case ErrorCode.E_DEFERRED_PAYMENT:
+        return "Your payment is deferred. Please check your payment method.";
+      case ErrorCode.E_INTERRUPTED:
+        return "The operation was interrupted. Please try again.";
+      case ErrorCode.E_IAP_NOT_AVAILABLE:
+        return "In-app purchases are not available at this time.";
+      default:
+        return "An unexpected error has occurred. Please contact support.";
+    }
+  }
   return (
     <IAPContext.Provider
       value={{

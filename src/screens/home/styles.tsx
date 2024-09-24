@@ -1,9 +1,11 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import {
   heightPercent as hp,
   widthPrecent as wp,
 } from '../../utils/ResponsiveScreen';
-
+const { width, height } = Dimensions.get("window");
+const aspectRatio = height / width;
+const IsIPAD = aspectRatio < 1.6;
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -36,11 +38,24 @@ export default StyleSheet.create({
     height: hp(5),
     width: wp(30),
     position: 'absolute',
-    bottom: hp(10),
+    bottom:IsIPAD?hp(6): hp(12),
     right: '1%',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: wp(3),
-    backgroundColor: 'yellow',
+    borderRadius: wp(2),overflow:'hidden',
+     backgroundColor: 'yellow', 
+
+   
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.3, 
+    shadowRadius: 4,   
+
+
+    elevation: 5,  
   },
+  
 });

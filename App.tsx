@@ -1,4 +1,4 @@
-import {BackHandler, Platform, ToastAndroid} from 'react-native';
+import {BackHandler, Platform, SafeAreaView, ToastAndroid} from 'react-native';
 import React, {Fragment, useEffect, useRef} from 'react';
 import Root from './src';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -9,6 +9,7 @@ const App = () => {
   const getAdd = () => {
     BackHandler.exitApp();
   };
+  console.log('App component loaded');
   useEffect(() => {
     const onBackPress = () => {
       handleBackButtonClick();
@@ -66,7 +67,9 @@ const App = () => {
 
   return (
     <Fragment>
+    <SafeAreaView style={{flex:1}}>
       <Root />
+      </SafeAreaView>
     </Fragment>
   );
 };

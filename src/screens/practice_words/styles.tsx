@@ -1,8 +1,11 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import {
   heightPercent as hp,
   widthPrecent as wp,
 } from '../../utils/ResponsiveScreen';
+const { width, height } = Dimensions.get("window");
+const aspectRatio = height / width;
+const IsIPAD = aspectRatio < 1.6;
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -14,7 +17,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   practiImg: {
-    height: hp(7),
+     height: hp(7),
     width: wp(45),
     alignSelf: 'center',
   },
@@ -56,7 +59,7 @@ export default StyleSheet.create({
     shadowOpacity: 4,
     shadowRadius: 3,
     marginTop: hp(3),
-    maxHeight: hp(55),
+    maxHeight:IsIPAD? hp(47):hp(49),
   },
   list: {
     paddingHorizontal: hp(2),

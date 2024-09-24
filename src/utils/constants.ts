@@ -2,7 +2,7 @@ import {Platform} from 'react-native';
 
 const productSkus = Platform.select({
   android: ['sightwords_ads_purchase'],
-  ios: ['com.eflash.eFlash.proupgrade'],
+  ios: ['com.eflashapps.sightwords2.proupgrade'],
 });
 export default {
   productSkus: productSkus,

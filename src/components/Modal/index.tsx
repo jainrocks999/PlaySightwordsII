@@ -1,16 +1,20 @@
-import {View, Text, Modal, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, Modal, StyleSheet, TouchableOpacity, Dimensions} from 'react-native';
 import React from 'react';
 import {
   heightPercent as hp,
   widthPrecent as wp,
 } from '../../utils/ResponsiveScreen';
-
+const { width, height } = Dimensions.get("window");
+const aspectRatio = height / width;
+const IsIPAD = aspectRatio < 1.6;
 type Props = {
   isVisible: boolean;
   onPress: (txt: boolean) => void;
   txt: string;
 };
 const MyModal: React.FC<Props> = ({isVisible, onPress, txt}) => {
+
+ 
   return (
     <Modal visible={isVisible} transparent>
       <View style={styles.container}>
@@ -33,16 +37,16 @@ export default MyModal;
 const styles = StyleSheet.create({
   modal: {
     height: hp(25),
-    width: wp(90),
+    width: wp(85),
     backgroundColor: '#c6cccc',
     elevation: 5,
   },
   blackContainer: {
     backgroundColor: 'black',
     height: '60%',
-    width: '99%',
+    width: '100%',
     alignSelf: 'center',
-    marginTop: '1%',
+    // marginTop: '1%',
     elevation: 5,
     paddingHorizontal: wp(2),
     alignItems: 'center',
@@ -50,13 +54,13 @@ const styles = StyleSheet.create({
   },
   txt: {
     color: 'white',
-    fontSize: wp(5.5),
+    fontSize:IsIPAD?wp(4): wp(5.5),
     textAlign: 'center',
     fontWeight: '500',
   },
   btn: {
     height: '30%',
-    width: '50%',
+    width: '45%',
     backgroundColor: 'white',
     alignSelf: 'center',
     marginTop: '2%',
@@ -65,7 +69,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   btnText: {
-    fontSize: wp(6),
+    fontSize:IsIPAD?wp(5.5): wp(6),
     color: 'black',
     fontWeight: '400',
   },

@@ -9,6 +9,7 @@ import {
   Text,
   TouchableHighlight,
   Linking,
+  Dimensions,
 } from 'react-native';
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import Header from '../../components/Header';
@@ -28,9 +29,14 @@ import {GAMBannerAd, BannerAdSize} from 'react-native-google-mobile-ads';
 import {Addsid} from '../../utils/ads';
 import {IAPContext} from '../../Context';
 import PurchasedeModal from '../../components/PurchaseModal';
+import { path } from '../../utils/path';
 type Props = StackScreenProps<StackNavigationParams, 'home'>;
 const Home: React.FC<Props> = ({navigation}) => {
   const IAP = useContext(IAPContext);
+  const { width, height } = Dimensions.get("window");
+  const aspectRatio = height / width;
+  const IsIPAD = aspectRatio < 1.6;
+
   const [muted, setMuted] = useState(false);
   const page = useSelector((state: rootState) => state.data.page);
   const data = useSelector((state: rootState) =>
@@ -38,17 +44,17 @@ const Home: React.FC<Props> = ({navigation}) => {
       .map(item => {
         const speling_name = `_${item.Word}_spelled.mp3`;
         const music = {
-          url: `asset:/files/_${item?.Word}.mp3`,
+          url: `${path}_${item?.Word}.mp3`,
           title: item.Word,
           artist: 'eFlashApps',
-          artwork: `asset:/files/_${item?.Word}.mp3`,
+          artwork: `${path}_${item?.Word}.mp3`,
           duration: 0,
         };
         const spelling = {
-          url: `asset:/files/${speling_name}`,
+          url: `${path}${speling_name}`,
           title: item?.Word,
           artist: 'eFlashApps',
-          artwork: `asset:/files/${item?.Word}`,
+          artwork: `${path}${item?.Word}`,
           duration: 0,
         };
         return [music, spelling];
@@ -57,10 +63,10 @@ const Home: React.FC<Props> = ({navigation}) => {
   );
   const sounds = [
     {
-      url: `asset:/files/kids_music_2.wav`,
+      url: `${path}kids_music_2.wav`,
       title: 'kidsSound',
       artist: 'eFlashApps',
-      artwork: `asset:/files/kids_music_2.wav`,
+      artwork: `${path}kids_music_2.wav`,
       duration: 0,
     },
     ...data,
@@ -197,8 +203,9 @@ const Home: React.FC<Props> = ({navigation}) => {
             <Text
               style={{
                 color: 'black',
-                fontWeight: '600',
+                fontWeight: '700',
                 fontFamily: 'LibreBaskerville-Bold',
+                fontSize:IsIPAD?25:17,
               }}>
               UPGRADE
             </Text>

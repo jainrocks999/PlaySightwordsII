@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   BackHandler,
   Modal,
+  Dimensions,
 } from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
 import {StackScreenProps} from '@react-navigation/stack';
@@ -17,17 +18,21 @@ import {FlatList} from 'react-native-gesture-handler';
 import player from '../../utils/player';
 import resetPlayer from '../../utils/resetPlayer';
 import {useDispatch} from 'react-redux';
-import {widthPrecent} from '../../utils/ResponsiveScreen';
+import {heightPercent, widthPrecent} from '../../utils/ResponsiveScreen';
 import MyModal from '../../components/Modal';
 import {GAMBannerAd, BannerAdSize} from 'react-native-google-mobile-ads';
 import showAdd, {Addsid} from '../../utils/ads';
 import {IAPContext} from '../../Context';
+import { path } from '../../utils/path';
 type Props = StackScreenProps<StackNavigationParams, 'practice'>;
 const Practice: React.FC<Props> = ({navigation}) => {
   const IAP = useContext(IAPContext);
   const [grade, setGrade] = useState('gradeA');
   const [data, setData] = useState<dbData>();
   const [isVisible, setIsvisible] = useState(false);
+  const { width, height } = Dimensions.get("window");
+const aspectRatio = height / width;
+const IsIPAD = aspectRatio < 1.6;
   useEffect(() => {
     getDataWithGrade('gradeA');
   }, []);
@@ -45,10 +50,10 @@ const Practice: React.FC<Props> = ({navigation}) => {
   };
   const play = async (item: dbItem) => {
     const music = {
-      url: `asset:/files/_${item?.Word}.mp3`,
+      url: `${path}_${item?.Word}.mp3`,
       title: item.Word,
       artist: 'eFlashApps',
-      artwork: `asset:/files/_${item?.Word}.mp3`,
+      artwork: `${path}_${item?.Word}.mp3`,
       duration: 0,
     };
     await player([music]);
@@ -94,7 +99,7 @@ const Practice: React.FC<Props> = ({navigation}) => {
           source={require('../../asset/images/practiceWord.png')}
         />
       </View>
-      <View style={styles.practiImg}>
+      <View style={[styles.practiImg,{marginTop:IsIPAD?heightPercent(1):0}]}>
         <ImageBackground
           style={styles.img}
           resizeMode="contain"

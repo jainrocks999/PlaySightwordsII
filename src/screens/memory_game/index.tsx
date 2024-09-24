@@ -25,6 +25,7 @@ import MyModal from '../../components/Modal';
 import showAdd, {Addsid} from '../../utils/ads';
 import {GAMBannerAd, BannerAdSize} from 'react-native-google-mobile-ads';
 import {IAPContext} from '../../Context';
+import { path } from '../../utils/path';
 type Props = StackScreenProps<StackNavigationParams, 'memory'>;
 
 const Memory: React.FC<Props> = ({navigation}) => {
@@ -62,10 +63,10 @@ const Memory: React.FC<Props> = ({navigation}) => {
   ) => {
     setIsDisabled(true);
     const music = {
-      url: `asset:/files/_${item.Word}.mp3`,
+      url: `${path}_${item.Word}.mp3`,
       title: item.Word,
       artist: 'eFlashApps',
-      artwork: `asset:/files/_${item.Word}.mp3`,
+      artwork: `${path}_${item.Word}.mp3`,
       duration: 0,
     };
 

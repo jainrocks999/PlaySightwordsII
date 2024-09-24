@@ -35,7 +35,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   txt: {
-    fontSize: wp(30),
+    fontSize: wp(20),
     fontFamily: 'Doctor Soos Bold 1.1',
     color: 'black',
   },

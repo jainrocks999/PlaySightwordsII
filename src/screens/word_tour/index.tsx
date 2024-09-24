@@ -24,6 +24,8 @@ import TrackPlayer from 'react-native-track-player';
 import showAdd, {Addsid} from '../../utils/ads';
 import {GAMBannerAd, BannerAdSize} from 'react-native-google-mobile-ads';
 import {IAPContext} from '../../Context';
+import { path } from '../../utils/path';
+
 type Props = StackScreenProps<StackNavigationParams, 'word'>;
 type music = {
   url: string;
@@ -135,17 +137,17 @@ const Word: React.FC<Props> = ({navigation}) => {
       const music_name = `_${word}.mp3`;
       const speling_name = `_${word}_spelled.mp3`;
       const music = {
-        url: `asset:/files/${music_name}`,
+        url: `${path}${music_name}`,
         title: word,
         artist: 'eFlashApps',
-        artwork: `asset:/files/${music_name}`,
+        artwork: `${path}${music_name}`,
         duration: 0,
       };
       const spelling = {
-        url: `asset:/files/${speling_name}`,
+        url: `${path}${speling_name}`,
         title: word,
         artist: 'eFlashApps',
-        artwork: `asset:/files/${speling_name}`,
+        artwork: `${path}${speling_name}`,
         duration: 0,
       };
       const arr = [music, spelling];

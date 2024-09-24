@@ -9,6 +9,7 @@ import {
   AppState,
   AppStateStatus,
   BackHandler,
+  Dimensions,
 } from 'react-native';
 import {GAMBannerAd, BannerAdSize} from 'react-native-google-mobile-ads';
 import showAdd, {Addsid} from '../../utils/ads';
@@ -28,9 +29,17 @@ import FastImage from 'react-native-fast-image';
 import TrackPlayer from 'react-native-track-player';
 import resetPlayer from '../../utils/resetPlayer';
 import {IAPContext} from '../../Context';
+import { path } from '../../utils/path';
+import {
+  heightPercent as hp,
+  widthPrecent as wp,
+} from '../../utils/ResponsiveScreen';
 type Props = StackScreenProps<StackNavigationParams, 'bingo'>;
 const Bingo: React.FC<Props> = ({navigation}) => {
   const IAP = useContext(IAPContext);
+  const { width, height } = Dimensions.get("window");
+  const aspectRatio = height / width;
+  const IsIPAD = aspectRatio < 1.6;
   const page = useSelector((state: rootState) => state.data.page);
   const backSound = useSelector((state: rootState) => state.data.backSound);
   const [seconds, setSeconds] = useState(0);
@@ -81,17 +90,17 @@ const Bingo: React.FC<Props> = ({navigation}) => {
     const sound_name = `_${options[rightIndex]?.Word}.mp3`;
     const sound = [
       {
-        url: 'asset:/files/clickon.mp3', //`asset:/files/clickon.mp3`,
+        url: `${path}clickon.mp3`, //`asset:/files/clickon.mp3`,
         title: options[rightIndex]?.Word,
         artist: 'eFlashApps',
-        artwork: `asset:/files/${sound_name}`,
+        artwork: `${path}${sound_name}`,
         duration: 0,
       },
       {
-        url: `asset:/files/${sound_name}`,
+        url: `${path}${sound_name}`,
         title: options[rightIndex]?.Word,
         artist: 'eFlashApps',
-        artwork: `asset:/files/${sound_name}`,
+        artwork: `${path}${sound_name}`,
         duration: 0,
       },
     ];
@@ -159,10 +168,10 @@ const Bingo: React.FC<Props> = ({navigation}) => {
 
     const sound = [
       {
-        url: `asset:/files/${sound_name}`,
+        url: `${path}${sound_name}`,
         title: options[rightIndex]?.Word,
         artist: 'eFlashApps',
-        artwork: `asset:/files/${sound_name}`,
+        artwork: `${path}${sound_name}`,
         duration: 0,
       },
     ];
@@ -258,10 +267,10 @@ const Bingo: React.FC<Props> = ({navigation}) => {
       setCount(prev => prev + 1);
       await player([
         {
-          url: 'asset:/files/string.wav',
+          url: `${path}string.wav`,
           title: 'string',
           artist: 'eFlashApps',
-          artwork: 'asset:/files/string.wav',
+          artwork: `${path}string.wav`,
           duration: 0,
         },
       ]);
@@ -425,12 +434,13 @@ const Bingo: React.FC<Props> = ({navigation}) => {
             <TouchableOpacity
               onPress={() => Praised(index)}
               disabled={rightAnsArr.includes(index)}
-              style={styles.card}>
+              style={[styles.card,{  height: IsIPAD?wp(15): wp(22),
+                width:IsIPAD?wp(15): wp(22),}]}>
               {!rightAnsArr.includes(index) ? (
                 <ImageBackground
                   style={styles.btn}
                   source={require('../../asset/images/btnbg.png')}>
-                  <Text style={styles.txt}>{item.Word}</Text>
+                  <Text style={[styles.txt, {fontSize:IsIPAD?wp(3): wp(6)}]}>{item.Word}</Text>
                 </ImageBackground>
               ) : selectedRowOrColumn.includes(index) ? (
                 <FastImage
@@ -452,7 +462,7 @@ const Bingo: React.FC<Props> = ({navigation}) => {
         <View style={styles.counts}>
           <Image
             style={styles.img}
-            resizeMode="contain"
+             resizeMode="contain"
             source={require('../../asset/images/incorrect.png')}
           />
           <Text style={styles.txt2}>{incorrect}</Text>
